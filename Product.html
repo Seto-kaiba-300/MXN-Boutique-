@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - MXN Boutique</title>
+    <link rel="icon" type="image/jpeg" href="MXN Boutique.jpg">
+    <style>
+        body { background-color: #111; color: white; font-family: Arial, sans-serif; }
+        header { background: rgba(0,0,0,0.8); padding: 20px; text-align: center; }
+        header a { color: #9b4dca; font-size: 1.5em; margin: 15px; text-decoration: none; }
+        header a:hover { color: #7a3b9d; }
+        .product-container { margin-top: 40px; text-align: center; }
+        .product { background: rgba(0,0,0,0.7); margin: 20px; padding: 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.6); }
+        .product img { width: 100%; height: auto; border-radius: 10px; }
+        .product h3 { font-size: 1.8em; color: #d4b0ff; }
+        .product input, .product button { width: 100%; padding: 10px; font-size: 1em; margin-top: 10px; border: 2px solid #9b4dca; border-radius: 5px; background-color: rgba(255, 255, 255, 0.1); }
+        .product button { background-color: #9b4dca; color: white; cursor: pointer; }
+        .product button:hover { background-color: #7a3b9d; }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="index.html">Home</a>
+    <a href="Product.html">Products</a>
+    <a href="Cart.html">Cart</a>
+</header>
+
+<div class="product-container">
+    <div class="product">
+        <h3>Plain Bracelet</h3>
+        <img src="IMG.jpg" alt="Plain Bracelet">
+        <label for="plain-color">Enter color:</label>
+        <input type="text" id="plain-color" placeholder="Type the color you want">
+        <button onclick="addToCart('Plain Bracelet', 20, 'plain-color')">Add to cart</button>
+    </div>
+
+    <div class="product">
+        <h3>Custom Bracelet</h3>
+        <img src="Custom.jpg" alt="Custom Bracelet">
+        <label for="custom-color">Enter color:</label>
+        <input type="text" id="custom-color" placeholder="Type the color you want">
+        <label for="custom-name">Enter name:</label>
+        <input type="text" id="custom-name" placeholder="Type your name">
+        <button onclick="addToCart('Custom Bracelet', 30, 'custom-color', 'custom-name')">Add to cart</button>
+    </div>
+
+    <div class="product">
+        <h3>Matching Bracelet</h3>
+        <img src="Main.jpg" alt="Matching Bracelet">
+        <label for="matching-color">Enter color:</label>
+        <input type="text" id="matching-color" placeholder="Type the color you want">
+        <label for="matching-name">Enter name:</label>
+        <input type="text" id="matching-name" placeholder="Type your name">
+        <button onclick="addToCart('Matching Bracelet', 80, 'matching-color', 'matching-name')">Add to cart</button>
+    </div>
+</div>
+
+<script>
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    function addToCart(name, price, colorId, nameId = null) {
+        const color = document.getElementById(colorId).value || "Default Color";
+        const customName = nameId ? document.getElementById(nameId).value : "";
+        const cartItem = { name, price, color, customName };
+
+        cart.push(cartItem);
+        localStorage.setItem('cart', JSON.stringify(cart));
+        alert(`${name} added to cart!`);
+    }
+</script>
+
+</body>
+</html>

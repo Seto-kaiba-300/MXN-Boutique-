@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - MXN Boutique</title>
+    <link rel="icon" type="image/jpeg" href="MXN Boutique.jpg">
+    <style>
+        body { background-color: #111; color: white; font-family: Arial, sans-serif; text-align: center; margin: 0; }
+        header { background: rgba(0,0,0,0.8); padding: 20px; text-align: center; }
+        header a { color: #9b4dca; font-size: 1.5em; margin: 15px; text-decoration: none; }
+        header a:hover { color: #7a3b9d; }
+        .slideshow-container { position: relative; max-width: 1000px; margin: auto; }
+        .slide { display: none; }
+        .slide img { width: 100%; border-radius: 10px; }
+        .text-container { margin: 40px auto; padding: 25px; background: rgba(0, 0, 0, 0.7); border-radius: 10px; max-width: 700px; }
+        .shop-now-btn { padding: 15px 30px; background: #9b4dca; color: white; text-decoration: none; font-size: 1.5em; border-radius: 5px; display: inline-block; }
+        .shop-now-btn:hover { background: #7a3b9d; }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="index.html">Home</a>
+    <a href="Product.html">Products</a>
+    <a href="Cart.html">Cart</a>
+</header>
+
+<div class="slideshow-container">
+    <div class="slide"><img src="1.jpg" alt="Slide 1"></div>
+    <div class="slide"><img src="2.jpg" alt="Slide 2"></div>
+    <div class="slide"><img src="3.jpg" alt="Slide 3"></div>
+    <div class="slide"><img src="4.jpg" alt="Slide 4"></div>
+</div>
+
+<h1>Welcome to MXN Boutique</h1>
+
+<div class="text-container">
+    <p>Discover timeless fashion with MXN Boutique. Curated collections for those who seek elegance and style.</p>
+    <a href="Product.html" class="shop-now-btn">Shop Now</a>
+</div>
+
+<script>
+    let slideIndex = 0;
+    function showSlides() {
+        let slides = document.getElementsByClassName("slide");
+        for (let i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        slideIndex++;
+        if (slideIndex > slides.length) { slideIndex = 1; }
+        slides[slideIndex - 1].style.display = "block";
+        setTimeout(showSlides, 3000);
+    }
+    showSlides();
+</script>
+
+</body>
+</html>

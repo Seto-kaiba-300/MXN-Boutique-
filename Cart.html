@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart - MXN Boutique</title>
+    <link rel="icon" type="image/jpeg" href="MXN Boutique.jpg">
+    <style>
+        body { background-color: #111; color: white; font-family: Arial, sans-serif; text-align: center; margin: 0; }
+        header { background: rgba(0,0,0,0.8); padding: 20px; text-align: center; }
+        header a { color: #9b4dca; font-size: 1.5em; margin: 15px; text-decoration: none; }
+        header a:hover { color: #7a3b9d; }
+        .cart-container { background: rgba(0,0,0,0.7); padding: 20px; margin: 20px auto; max-width: 900px; border-radius: 10px; }
+        .cart-item { background: rgba(255,255,255,0.1); padding: 10px; margin: 15px 0; border-radius: 5px; }
+        .cart-item button { background-color: #d9534f; color: white; border: none; padding: 8px 20px; cursor: pointer; border-radius: 5px; }
+        .checkout-btn { padding: 12px 30px; background-color: #9b4dca; color: white; font-size: 1.5em; border-radius: 5px; cursor: pointer; margin-top: 20px; }
+        .checkout-btn:hover { background-color: #7a3b9d; }
+        .pickup-point input { padding: 12px; font-size: 1em; width: 100%; border-radius: 5px; background-color: rgba(255,255,255,0.1); border: 2px solid #9b4dca; }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="index.html">Home</a>
+    <a href="Product.html">Products</a>
+    <a href="Cart.html">Cart</a>
+</header>
+
+<div class="cart-container">
+    <h2>Shopping Cart</h2>
+    <div id="cart-items"></div>
+    <p><strong>Total: R<span id="total-price">0</span></strong></p>
+
+    <div class="pickup-point">
+        <label for="pickup-point">Enter Pickup Point:</label>
+        <input type="text" id="pickup-point" placeholder="Enter your pickup point" required>
+    </div>
+
+    <button class="checkout-btn" onclick="checkout()">Checkout</button>
+</div>
+
+<script>
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    let totalPrice = 0;
+
+    function updateCart() {
+        const cartContainer = document.getElementById("cart-items");
+        const totalElement = document.getElementById("total-price");
+        cartContainer.innerHTML = "";
+        totalPrice = 0;
+
+        cart.forEach((item, index) => {
+            cartContainer.innerHTML += `
+                <div class="cart-item">
+                    <p><strong>${item.name}</strong></p>
+                    <p>Color: ${item.color}</p>
+                    ${item.customName ? `<p>Name: ${item.customName}</p>` : ""}
+                    <button onclick="removeFromCart(${index})">Remove</button>
+                </div>
+            `;
+            totalPrice += item.price;
+        });
+
+        totalElement.innerHTML = totalPrice;
+    }
+
+    function removeFromCart(index) {
+        cart.splice(index, 1);
+        localStorage.setItem('cart', JSON.stringify(cart));
+        updateCart();
+    }
+
+    function checkout() {
+        const pickupPoint = document.getElementById('pickup-point').value;
+        if (!pickupPoint) {
+            alert("Please enter a pickup point before proceeding.");
+            return;
+        }
+
+        if (cart.length === 0) {
+            alert("You can't checkout without ordering at least one item.");
+            return;
+        }
+
+        let message = `Order details:\n`;
+
+        cart.forEach(item => {
+            message += `\n${item.name} - Color: ${item.color}`;
+            if (item.customName) {
+                message += `, Name: ${item.customName}`;
+            }
+        });
+
+        message += `\n\nTotal: R${totalPrice}\nPickup Point: ${pickupPoint}\n`;
+        const whatsappUrl = `https://wa.me/27716204620?text=${encodeURIComponent(message)}`;
+        window.open(whatsappUrl, '_blank');
+    }
+
+    updateCart();
+</script>
+
+</body>
+</html>
